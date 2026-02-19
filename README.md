@@ -78,7 +78,7 @@ sudo mkdir -p /mnt/nas_Install
 
 ### Make SMB mount persistent
 
-edit /etc/fstab on each dockernode
+edit `/etc/fstab` on each dockernode
 
 ```bash
 #mount NAS_install_folder
@@ -92,10 +92,32 @@ edit /etc/fstab on each dockernode
 ### Create all needed folders
 
 ```bash
-#mount NAS_install_folder
-//192.168.23.3/nas/Install /mnt/nas_Install cifs username=SMBUSERNAME,password=SMBPASSWORD,iocharset=utf8,_netdev 0 0
+mkdir /mnt/backup-er/
+mkdir /mnt/backup-er/scripts
 
 ```
+
+## Docker setup
+
+### place scripts and cron job to folders
+
+Place [vaultwarden-backup.sh](scripts/vaultwarden-backup.sh) to  `/mnt/backup-er/scripts`
+Place [cron_job_file](cron/backup-er.cron) to `/mnt/backup-er` and name it `root`
+
+
+### create stack
+
+!!! HERE SHOULD BE LINK
+
+
+
+
+## Vaultwarden specifics
+
+In case of failure of VaultWarden and need of recovery of database, just set up new VaultWarden stack, stop it and replace all files in `/mnt/vaultwarde/data` with backup that this script creates and saves on NAS. After start of vaultwarden stack, it should get to previous state and database should be loaded normally. In case you have not done this previously, test recovery first an just than believe that your plan is good and you are capable of restoring your database :) 
+
+
+
 
 
 

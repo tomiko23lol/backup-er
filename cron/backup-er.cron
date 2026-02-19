@@ -1,0 +1,2 @@
+#cron job for vaultwarden backup script run
+0 5 * * * /mnt/backup-er/scripts/vaultwarden-backup.sh >> /mnt/backup-er/backup.log 2>&1

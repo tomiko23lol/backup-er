@@ -101,22 +101,23 @@ mkdir /mnt/backup-er/scripts
 
 ### place scripts and cron job to folders
 
-Place [vaultwarden-backup.sh](scripts/vaultwarden-backup.sh) to  `/mnt/backup-er/scripts`
-Place [cron_job_file](cron/backup-er.cron) to `/mnt/backup-er` and name it `root`
+- Place [vaultwarden-backup.sh](scripts/vaultwarden-backup.sh) to  `/mnt/backup-er/scripts`
+- Place [cron_job_file](cron/backup-er.cron) to `/mnt/backup-er` and name it `root`
 
 
-### create stack
+### create stack in Portainer
 
-!!! HERE SHOULD BE LINK
-
-
-
-
-## Vaultwarden specifics
-
-In case of failure of VaultWarden and need of recovery of database, just set up new VaultWarden stack, stop it and replace all files in `/mnt/vaultwarde/data` with backup that this script creates and saves on NAS. After start of vaultwarden stack, it should get to previous state and database should be loaded normally. In case you have not done this previously, test recovery first an just than believe that your plan is good and you are capable of restoring your database :) 
+- create new stack backup-er
+- place contents of [stack.yml](docker/stack.yml) in to stack yaml in portainer and start this stack.
+- check that stack is running, and service is up / container is running.
+- for first check if script is working, you can go to console of this new container and run vaultwarden-backup.sh manually, it should run for a while and create zip backup in location you specified, in my case on NAS in `/nas/Install/vaultwarden/backups/`
 
 
+
+
+## Vaultwarden backup specifics
+
+In case of failure of VaultWarden and need of recovery of database, just set up new VaultWarden stack, stop it and replace all files in `/mnt/vaultwarde/data` with backup that this script creates and saves on NAS. After start of vaultwarden stack, it should get to previous state and database should be loaded normally. In case you have not done this previously, test recovery first an just than believe that your plan for recovery is good and you are capable of restoring your database :). I tested it and it worked without any issue.
 
 
 

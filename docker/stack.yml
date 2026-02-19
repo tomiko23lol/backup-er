@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  backup-er:
+    image: alpine:3.19
+
+    command: >
+      sh -c "
+      apk add --no-cache bash docker-cli zip tzdata &&
+      cp /mnt/backup-er/root /etc/crontabs/root &&
+      crond -f -l 2
+      "
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /mnt:/mnt:ro
+      - /mnt/nas_Install:/mnt/nas_Install:rw
+      - /mnt/backup-er:/mnt/backup-er:rw
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+    restart: unless-stopped
